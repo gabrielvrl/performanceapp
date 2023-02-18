@@ -4,6 +4,13 @@ import { FriendList } from '../components/FriendList';
 
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 
+interface FriendProps {
+  id: string;
+  name: string;
+  likes: string;
+
+}
+
 export const Home = () => {
   const [name, setName] = useState('');
   const [friends, setFriends] = useState([]);
@@ -12,7 +19,16 @@ export const Home = () => {
     const response = await fetch(`http://192.168.2.115:3333/friends?q=${name}`);
     const data = await response.json();
 
-    setFriends(data);
+    const formattedDate = data.map((friend: FriendProps) => {
+      return {
+        id: friend.id,
+        name: friend.name,
+        likes: friend.likes,
+        online: `${new Date().getHours()}:${new Date().getMinutes()}`,
+      }
+    })
+
+    setFriends(formattedDate);
   }
 
   const handleFollow = useCallback(() => {

@@ -6,6 +6,7 @@ interface FriendProps {
     id: number;
     name: string;
     likes: number;
+    online: string;
   },
   follow: () => void;
 }
@@ -19,6 +20,7 @@ const FriendComponent = ({ data, follow }: FriendProps) => {
       <TouchableOpacity onPress={follow}>
           <Text>Seguir</Text>
       </TouchableOpacity>
+      <Text>online: {data.online}</Text>
     </View>
   );
 }
